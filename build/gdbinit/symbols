@@ -1,0 +1,9 @@
+
+
+# Load bootloader symbols
+set confirm off
+    add-symbol-file C:/Users/Om/workspace/Behavioral_Data_Collection/build/bootloader/bootloader.elf
+set confirm on
+
+# Load application symbols
+file C:/Users/Om/workspace/Behavioral_Data_Collection/build/app-template.elf
