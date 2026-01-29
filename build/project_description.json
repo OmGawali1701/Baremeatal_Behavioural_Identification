@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "app-template",
-    "project_version":    "1",
+    "project_version":    "36f2efa-dirty",
     "project_path":       "C:/Users/Om/workspace/Behavioral_Data_Collection",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.5.2",
     "build_dir":          "C:/Users/Om/workspace/Behavioral_Data_Collection/build",
@@ -1225,7 +1225,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/Om/workspace/Behavioral_Data_Collection/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/Om/workspace/Behavioral_Data_Collection/main/app_main.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/wifi_manager.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/mqtt_manager.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/sensor_manager.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/static_data.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/dynamic_data.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/json_builder.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/mq_sensor.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/uart_checker.c" ],
+            "sources": [ "C:/Users/Om/workspace/Behavioral_Data_Collection/main/app_main.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/bme280_sensor.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/bme280.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/dynamic_data.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/json_builder.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/mq_sensor.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/mqtt_manager.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/sensor_manager.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/static_data.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/uart_checker.c", "C:/Users/Om/workspace/Behavioral_Data_Collection/main/wifi_manager.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {

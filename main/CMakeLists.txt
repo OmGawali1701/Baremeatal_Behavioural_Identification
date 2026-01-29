@@ -4,14 +4,16 @@
 idf_component_register(
     SRCS          # list the source files of this component
     "app_main.c"
-    "wifi_manager.c"
-    "mqtt_manager.c"
-    "sensor_manager.c"
-    "static_data.c"
+    "bme280_sensor.c"
+    "bme280.c"
     "dynamic_data.c"
     "json_builder.c"
     "mq_sensor.c"
-    "uart_checker.c"
+    "mqtt_manager.c"
+    "sensor_manager.c"
+    "static_data.c"
+    "uart_checker.c"    
+    "wifi_manager.c"
     INCLUDE_DIRS "."        # optional, add here public include directories
     PRIV_INCLUDE_DIRS   # optional, add here private include directories
     REQUIRES            # optional, list the public requirements (component names)

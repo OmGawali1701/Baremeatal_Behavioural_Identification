@@ -12,6 +12,8 @@
 #include "json_builder.h"
 #include "sensor_manager.h"
 #include "mq_sensor.h"
+#include "bme280_sensor.h"
+
 
 #define TAG "APP_MAIN"
 #define MQTT_TOPIC "device/BM/data"
@@ -70,7 +72,9 @@ void app_main(void)
     mqtt_init();         // async connect
 
     /* ---------- Sensors ---------- */
+    
     mq_sensor_register();
+    bme280_sensor_register();
     sensor_manager_init();
 
     /* ---------- Publish Task ---------- */

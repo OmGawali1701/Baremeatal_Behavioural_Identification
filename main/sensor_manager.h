@@ -5,17 +5,20 @@
 
 /* -------- Sensor Data Container -------- */
 typedef struct {
-    const char *sensor_name;
+    const char *key;
     float value;
     const char *unit;
-} sensor_data_t;
+} sensor_kv_t;
 
 /* -------- Sensor Driver Interface -------- */
 typedef struct {
-    const char *name;
+    const char *name;   // "bme280", "mq_sensor"
     esp_err_t (*init)(void);
-    esp_err_t (*read)(sensor_data_t *out);
+
+    /* Sensor fills an array of key-value pairs */
+    esp_err_t (*read)(sensor_kv_t *out, int *count);
 } sensor_driver_t;
+
 
 /* -------- Sensor Manager API -------- */
 void sensor_manager_init(void);

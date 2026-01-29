@@ -2,6 +2,8 @@
 #include "esp_log.h"
 
 #define MAX_SENSORS 8
+#define MAX_SENSOR_VALUES 8
+
 static const char *TAG = "SENSOR_MGR";
 
 static sensor_driver_t *sensor_list[MAX_SENSORS];
@@ -27,15 +29,25 @@ void sensor_manager_init(void)
 void sensor_manager_collect(cJSON *dynamic_obj)
 {
     for (int i = 0; i < sensor_count; i++) {
-        sensor_data_t data;
 
+        sensor_kv_t values[MAX_SENSOR_VALUES];
+        int value_count = 0;
 
         if (sensor_list[i]->read &&
-            sensor_list[i]->read(&data) == ESP_OK) {
+            sensor_list[i]->read(values, &value_count) == ESP_OK) {
 
-            cJSON_AddNumberToObject(dynamic_obj,
-                                    data.sensor_name,
-                                    data.value);
+            /* Create sub-object per sensor */
+            cJSON *sensor_obj = cJSON_CreateObject();
+
+            for (int j = 0; j < value_count; j++) {
+                cJSON_AddNumberToObject(sensor_obj,
+                                        values[j].key,
+                                        values[j].value);
+            }
+
+            cJSON_AddItemToObject(dynamic_obj,
+                                  sensor_list[i]->name,
+                                  sensor_obj);
         }
     }
 }
