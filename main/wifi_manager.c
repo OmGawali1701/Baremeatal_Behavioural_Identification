@@ -4,12 +4,12 @@
 #include "esp_event.h"
 #include "esp_log.h"
 #include "esp_netif.h"
-#include "nvs_flash.h"
+
 
 #define TAG "WIFI"
 
-#define WIFI_SSID "MASA-POINT"
-#define WIFI_PASS "01010101"
+#define WIFI_SSID "acer"
+#define WIFI_PASS "12345678"
 
 static bool wifi_connected = false;
 static esp_netif_t *sta_netif;

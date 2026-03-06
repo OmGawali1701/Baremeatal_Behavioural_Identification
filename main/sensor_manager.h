@@ -1,26 +1,34 @@
 #pragma once
 
 #include "esp_err.h"
-#include "cJSON.h"
+#include <stdbool.h>
 
-/* -------- Sensor Data Container -------- */
-typedef struct {
+#define MAX_SENSORS     8
+#define MAX_SENSOR_KV   32
+
+typedef struct
+{
     const char *key;
     float value;
     const char *unit;
+
 } sensor_kv_t;
 
-/* -------- Sensor Driver Interface -------- */
-typedef struct {
-    const char *name;   // "bme280", "mq_sensor"
-    esp_err_t (*init)(void);
 
-    /* Sensor fills an array of key-value pairs */
-    esp_err_t (*read)(sensor_kv_t *out, int *count);
+typedef struct {
+
+    const char *name;
+
+    esp_err_t (*init)(void);
+    esp_err_t (*read)(sensor_kv_t *kv, int *count);
+
+    bool initialized;
+
 } sensor_driver_t;
 
 
-/* -------- Sensor Manager API -------- */
-void sensor_manager_init(void);
-void sensor_manager_register(sensor_driver_t *driver);
-void sensor_manager_collect(cJSON *dynamic_obj);
+/* Core API */
+esp_err_t sensor_manager_register(sensor_driver_t *driver);
+void sensor_manager_register_all(void);
+esp_err_t sensor_manager_init_all(void);
+esp_err_t sensor_manager_collect(sensor_kv_t *out, int *total_count);

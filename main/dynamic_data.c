@@ -1,30 +1,70 @@
 #include "dynamic_data.h"
+#include "esp_log.h"
 #include "esp_system.h"
-#include "esp_timer.h"
-#include "sensor_manager.h"
 #include "esp_wifi.h"
-#include "esp_netif.h"
+#include "esp_timer.h"
+#include "esp_heap_caps.h"
 
-cJSON* get_dynamic_data_json(void)
+#define TAG "DYNAMIC_DATA"
+
+/* Collect runtime telemetry */
+esp_err_t dynamic_data_collect(dynamic_data_t *out)
 {
-    cJSON *obj = cJSON_CreateObject();
-    wifi_ap_record_t ap;
-    if (esp_wifi_sta_get_ap_info(&ap) == ESP_OK) {
-        cJSON_AddNumberToObject(obj, "rssi", ap.rssi);
-        cJSON_AddNumberToObject(obj, "channel", ap.primary);
+    if (!out)
+        return ESP_ERR_INVALID_ARG;
+
+    /* Clear counts */
+    out->sensor_count = 0;
+    out->health_count = 0;
+
+    /* --------------------------
+       1 Collect sensor data
+       -------------------------- */
+    if (sensor_manager_collect(out->sensor_kv,
+                               &out->sensor_count) != ESP_OK) {
+        ESP_LOGW(TAG, "Sensor collection failed");
     }
 
-    esp_netif_ip_info_t ip;
-    esp_netif_t *netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
-    if (netif && esp_netif_get_ip_info(netif, &ip) == ESP_OK) {
-        char ip_str[16];
-        esp_ip4addr_ntoa(&ip.ip, ip_str, sizeof(ip_str));
-        cJSON_AddStringToObject(obj, "ip", ip_str);
+    /* --------------------------
+       2️ Collect health data
+       -------------------------- */
+
+    int64_t uptime_us = esp_timer_get_time();
+    uint32_t uptime_sec = uptime_us / 1000000;
+
+    uint32_t free_heap = heap_caps_get_free_size(MALLOC_CAP_DEFAULT);
+
+    wifi_ap_record_t ap_info;
+    int8_t rssi = 0;
+
+    if (esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK) {
+        rssi = ap_info.rssi;
     }
 
-    cJSON_AddNumberToObject(obj, "free_heap", esp_get_free_heap_size());
-    cJSON_AddNumberToObject(obj, "uptime_sec",
-                            esp_timer_get_time() / 1000000);
-    sensor_manager_collect(obj);
-    return obj;
+    /* Fill health kv */
+    int idx = 0;
+
+	if (idx < MAX_HEALTH_PARAMS) {
+    out->health_kv[idx++] = (sensor_kv_t){
+        .key = "uptime_sec",
+        .value = (float)uptime_sec,
+        .unit = "sec"
+    };
+
+    out->health_kv[idx++] = (sensor_kv_t){
+        .key = "heap_free_bytes",
+        .value = (float)free_heap,
+        .unit = "bytes"
+    };
+
+    out->health_kv[idx++] = (sensor_kv_t){
+        .key = "wifi_rssi",
+        .value = (float)rssi,
+        .unit = "dBm"
+    };
+    }
+
+    out->health_count = idx;
+
+    return ESP_OK;
 }

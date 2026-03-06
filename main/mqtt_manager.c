@@ -4,7 +4,9 @@
 #include "mqtt_client.h"
 #include "esp_event.h"
 
-static const char *TAG = "MQTT_MANAGER";
+#define MQTT_URI "mqtt://broker.hivemq.com"
+
+#define TAG "MQTT_MANAGER"
 
 /* MQTT client handle */
 static esp_mqtt_client_handle_t mqtt_client = NULL;

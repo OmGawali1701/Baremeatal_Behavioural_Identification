@@ -12,7 +12,6 @@ idf_component_register(
     "mqtt_manager.c"
     "sensor_manager.c"
     "static_data.c"
-    "uart_checker.c"    
     "wifi_manager.c"
     INCLUDE_DIRS "."        # optional, add here public include directories
     PRIV_INCLUDE_DIRS   # optional, add here private include directories
