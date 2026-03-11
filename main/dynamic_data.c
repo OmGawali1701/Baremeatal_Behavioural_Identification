@@ -4,6 +4,7 @@
 #include "esp_wifi.h"
 #include "esp_timer.h"
 #include "esp_heap_caps.h"
+#include "port_monitor.h"
 
 #define TAG "DYNAMIC_DATA"
 
@@ -44,27 +45,45 @@ esp_err_t dynamic_data_collect(dynamic_data_t *out)
     /* Fill health kv */
     int idx = 0;
 
-	if (idx < MAX_HEALTH_PARAMS) {
+	if (idx < MAX_HEALTH_PARAMS)
     out->health_kv[idx++] = (sensor_kv_t){
         .key = "uptime_sec",
         .value = (float)uptime_sec,
         .unit = "sec"
     };
 
+	if (idx < MAX_HEALTH_PARAMS)
     out->health_kv[idx++] = (sensor_kv_t){
         .key = "heap_free_bytes",
         .value = (float)free_heap,
         .unit = "bytes"
     };
 
+	if (idx < MAX_HEALTH_PARAMS)
     out->health_kv[idx++] = (sensor_kv_t){
         .key = "wifi_rssi",
         .value = (float)rssi,
         .unit = "dBm"
     };
-    }
 
     out->health_count = idx;
+    
+	/* --------------------------
+   3 Collect port activity
+   -------------------------- */
 
+	int port_count = port_monitor_collect(out->ports, MAX_PORTS);
+
+	if (port_count < 0) {
+    ESP_LOGW(TAG, "Port monitor collection failed");
+    out->port_count = 0;
+	}
+	else if (port_count > MAX_PORTS) {
+    ESP_LOGW(TAG, "Port monitor returned invalid count");
+    out->port_count = MAX_PORTS;
+	}
+	else {
+    out->port_count = port_count;
+	}
     return ESP_OK;
 }

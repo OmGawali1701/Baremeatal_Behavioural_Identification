@@ -8,8 +8,8 @@
 
 #define TAG "WIFI"
 
-#define WIFI_SSID "acer"
-#define WIFI_PASS "12345678"
+#include "sdkconfig.h"
+
 
 static bool wifi_connected = false;
 static esp_netif_t *sta_netif;
@@ -71,19 +71,19 @@ void wifi_init_sta(void)
         IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL));
 
     wifi_config_t wifi_config = {
-        .sta = {
-            .threshold.authmode = WIFI_AUTH_WPA2_PSK,
-            .pmf_cfg = {
-                .capable = true,
-                .required = false
-            }
-        }
-    };
+    .sta = {
+        .ssid = CONFIG_WIFI_SSID,
+        .password = CONFIG_WIFI_PASSWORD,
 
-    strncpy((char *)wifi_config.sta.ssid, WIFI_SSID,
-            sizeof(wifi_config.sta.ssid));
-    strncpy((char *)wifi_config.sta.password, WIFI_PASS,
-            sizeof(wifi_config.sta.password));
+        .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+
+        .pmf_cfg = {
+            .capable = true,
+            .required = false
+        }
+    }
+};
+
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));

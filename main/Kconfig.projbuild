@@ -1,0 +1,77 @@
+menu "Behavioral Device Configuration"
+
+
+menu "Device Information"
+
+config DEVICE_NAME
+    string "Device Name"
+    default "behavioral_node"
+
+config DEVICE_ID
+    string "Device ID"
+    default "ESP32_DEVICE_01"
+
+config FIRMWARE_VERSION
+    string "Firmware Version"
+    default "1.0.0"
+
+endmenu
+
+
+menu "WiFi Configuration"
+
+config WIFI_SSID
+    string "WiFi SSID"
+    default "acer"
+
+config WIFI_PASSWORD
+    string "WiFi Password"
+    default "12345678"
+
+endmenu
+
+
+menu "BME280 Configuration"
+
+config BME280_I2C_PORT
+    int "I2C Port"
+    default 0
+
+config BME280_SDA_PIN
+    int "SDA Pin"
+    default 8
+
+config BME280_SCL_PIN
+    int "SCL Pin"
+    default 9
+
+config BME280_I2C_FREQ
+    int "I2C Frequency"
+    default 100000
+
+endmenu
+
+
+menu "MQ135 Configuration"
+
+config MQ135_ADC_CHANNEL
+    int "MQ135 ADC Channel"
+    default 6
+
+endmenu
+
+
+menu "Telemetry Configuration"
+
+config MQTT_TOPIC
+    string "MQTT Publish Topic"
+    default "device/BM/data"
+
+config PUBLISH_INTERVAL_MS
+    int "Publish Interval (ms)"
+    default 5000
+
+endmenu
+
+
+endmenu

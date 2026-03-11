@@ -6817,6 +6817,174 @@
                 "children": [
                     {
                         "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "DEVICE_NAME",
+                        "name": "DEVICE_NAME",
+                        "range": null,
+                        "title": "Device Name",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "DEVICE_ID",
+                        "name": "DEVICE_ID",
+                        "range": null,
+                        "title": "Device ID",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "FIRMWARE_VERSION",
+                        "name": "FIRMWARE_VERSION",
+                        "range": null,
+                        "title": "Firmware Version",
+                        "type": "string"
+                    }
+                ],
+                "depends_on": null,
+                "id": "behavioral-device-configuration-device-information",
+                "title": "Device Information",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "WIFI_SSID",
+                        "name": "WIFI_SSID",
+                        "range": null,
+                        "title": "WiFi SSID",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "WIFI_PASSWORD",
+                        "name": "WIFI_PASSWORD",
+                        "range": null,
+                        "title": "WiFi Password",
+                        "type": "string"
+                    }
+                ],
+                "depends_on": null,
+                "id": "behavioral-device-configuration-wifi-configuration",
+                "title": "WiFi Configuration",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BME280_I2C_PORT",
+                        "name": "BME280_I2C_PORT",
+                        "range": null,
+                        "title": "I2C Port",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BME280_SDA_PIN",
+                        "name": "BME280_SDA_PIN",
+                        "range": null,
+                        "title": "SDA Pin",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BME280_SCL_PIN",
+                        "name": "BME280_SCL_PIN",
+                        "range": null,
+                        "title": "SCL Pin",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BME280_I2C_FREQ",
+                        "name": "BME280_I2C_FREQ",
+                        "range": null,
+                        "title": "I2C Frequency",
+                        "type": "int"
+                    }
+                ],
+                "depends_on": null,
+                "id": "behavioral-device-configuration-bme280-configuration",
+                "title": "BME280 Configuration",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "MQ135_ADC_CHANNEL",
+                        "name": "MQ135_ADC_CHANNEL",
+                        "range": null,
+                        "title": "MQ135 ADC Channel",
+                        "type": "int"
+                    }
+                ],
+                "depends_on": null,
+                "id": "behavioral-device-configuration-mq135-configuration",
+                "title": "MQ135 Configuration",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "MQTT_TOPIC",
+                        "name": "MQTT_TOPIC",
+                        "range": null,
+                        "title": "MQTT Publish Topic",
+                        "type": "string"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "PUBLISH_INTERVAL_MS",
+                        "name": "PUBLISH_INTERVAL_MS",
+                        "range": null,
+                        "title": "Publish Interval (ms)",
+                        "type": "int"
+                    }
+                ],
+                "depends_on": null,
+                "id": "behavioral-device-configuration-telemetry-configuration",
+                "title": "Telemetry Configuration",
+                "type": "menu"
+            }
+        ],
+        "depends_on": null,
+        "id": "behavioral-device-configuration",
+        "title": "Behavioral Device Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [],
                         "depends_on": "<choice COMPILER_OPTIMIZATION>",
                         "help": null,
                         "id": "COMPILER_OPTIMIZATION_DEBUG",

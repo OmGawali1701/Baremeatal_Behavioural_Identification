@@ -595,6 +595,48 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
+# Behavioral Device Configuration
+#
+
+#
+# Device Information
+#
+CONFIG_DEVICE_NAME="behavioral_node"
+CONFIG_DEVICE_ID="ESP32_DEVICE_01"
+CONFIG_FIRMWARE_VERSION="1.0.0"
+# end of Device Information
+
+#
+# WiFi Configuration
+#
+CONFIG_WIFI_SSID="acer"
+CONFIG_WIFI_PASSWORD="12345678"
+# end of WiFi Configuration
+
+#
+# BME280 Configuration
+#
+CONFIG_BME280_I2C_PORT=0
+CONFIG_BME280_SDA_PIN=8
+CONFIG_BME280_SCL_PIN=9
+CONFIG_BME280_I2C_FREQ=100000
+# end of BME280 Configuration
+
+#
+# MQ135 Configuration
+#
+CONFIG_MQ135_ADC_CHANNEL=6
+# end of MQ135 Configuration
+
+#
+# Telemetry Configuration
+#
+CONFIG_MQTT_TOPIC="device/BM/data"
+CONFIG_PUBLISH_INTERVAL_MS=5000
+# end of Telemetry Configuration
+# end of Behavioral Device Configuration
+
+#
 # Compiler options
 #
 CONFIG_COMPILER_OPTIMIZATION_DEBUG=y

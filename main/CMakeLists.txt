@@ -10,6 +10,7 @@ idf_component_register(
     "json_builder.c"
     "mq_sensor.c"
     "mqtt_manager.c"
+    "port_monitor.c"
     "sensor_manager.c"
     "static_data.c"
     "wifi_manager.c"

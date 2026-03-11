@@ -53,7 +53,9 @@ char *build_device_json(void)
     cJSON_AddNumberToObject(dynamic_obj,
                             "sensor_count",
                             ddata.sensor_count);
-
+                            
+	 /* ================= SENSOR DATA ================= */
+ 
     cJSON *sensor_array = cJSON_AddArrayToObject(dynamic_obj, "sensors");
 
     for (int i = 0; i < ddata.sensor_count; i++) {
@@ -67,15 +69,67 @@ char *build_device_json(void)
         cJSON_AddNumberToObject(sensor_obj,
                                 "value",
                                 ddata.sensor_kv[i].value);
+		if (ddata.sensor_kv[i].unit)
+    cJSON_AddStringToObject(sensor_obj,
+                            "unit",
+                            ddata.sensor_kv[i].unit);
 
         cJSON_AddItemToArray(sensor_array, sensor_obj);
     }
+    
+     /* ================= HEALTH DATA ================= */
+	
+		cJSON *health_array = cJSON_AddArrayToObject(dynamic_obj, "health");
+
+for (int i = 0; i < ddata.health_count; i++) {
+
+    cJSON *health_obj = cJSON_CreateObject();
+
+    cJSON_AddStringToObject(health_obj,
+                            "key",
+                            ddata.health_kv[i].key);
+
+    cJSON_AddNumberToObject(health_obj,
+                            "value",
+                            ddata.health_kv[i].value);
+
+    if (ddata.health_kv[i].unit)
+        cJSON_AddStringToObject(health_obj,
+                                "unit",
+                                ddata.health_kv[i].unit);
+
+    cJSON_AddItemToArray(health_array, health_obj);
+}
+
+    /* ================= PORT DATA ================= */
+    
+cJSON *ports = cJSON_CreateArray();
+
+for (int i = 0; i < ddata.port_count; i++)
+{
+    cJSON *port = cJSON_CreateObject();
+
+    cJSON_AddStringToObject(port, "name", ddata.ports[i].name);
+    cJSON_AddBoolToObject(port, "active", ddata.ports[i].active);
+    cJSON_AddNumberToObject(port, "tx", ddata.ports[i].tx_count);
+    cJSON_AddNumberToObject(port, "rx", ddata.ports[i].rx_count);
+
+    cJSON_AddItemToArray(ports, port);
+}
+
+cJSON_AddItemToObject(dynamic_obj, "ports", ports);
+
 
     /* ================= SYSTEM META ================= */
 
     cJSON_AddStringToObject(root, "status", "ok");
 
     /* ---------- Finalize ---------- */
+    
+    if (!static_obj || !dynamic_obj) {
+    cJSON_Delete(root);
+    return NULL;
+}
 
     char *json_string = cJSON_PrintUnformatted(root);
 

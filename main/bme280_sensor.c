@@ -17,9 +17,9 @@ static esp_err_t bme280_read(sensor_kv_t *out, int *count)
 
     int idx = 0;
 
-    float temperature = 25.3;
-    float humidity = 60.1;
-    float pressure = 1013.2;
+    float temperature = 0.0;
+    float humidity = 00.0;
+    float pressure = 0000.0;
 
     out[idx++] = (sensor_kv_t){ "temperature", temperature, "C" };
     out[idx++] = (sensor_kv_t){ "humidity", humidity, "%" };
